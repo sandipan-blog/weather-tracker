@@ -1,0 +1,292 @@
+:root {
+  --bg-top: #4aa3e8;
+  --bg-bottom: #c9ecf7;
+  --card: #ffffff;
+  --ink: #16324a;
+  --muted: #52708a;
+  --line: #d6e6f2;
+  --accent: #1a7fd4;
+  --section-title: #1470c4;
+  --tile: #eaf4fc;
+  --error: #c44732;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.site-header {
+  padding: 20px 16px 12px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  color: #ffffff;
+  margin: 0 0 4px;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(10, 40, 70, 0.25);
+}
+
+.site-header h1 {
+  margin: 0 0 14px;
+  font-size: 30px;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(10, 40, 70, 0.3);
+}
+
+.search-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.search-box { position: relative; flex: 1 1 240px; min-width: 200px; }
+
+#city-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 15px;
+  background: var(--card);
+}
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(15, 50, 90, 0.18);
+  z-index: 1000;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.suggestions li {
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.suggestions li:hover, .suggestions li.active { background: var(--tile); }
+.suggestions .s-main { font-weight: 600; }
+.suggestions .s-sub { font-size: 12px; color: var(--muted); }
+
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #2b9df0;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(20, 90, 160, 0.25);
+}
+button:hover { background: #1f8ce2; }
+
+.status-line { min-height: 20px; margin: 8px 0 0; font-size: 13px; color: #eaf6ff; }
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+  display: grid;
+  gap: 14px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 6px 20px rgba(20, 60, 110, 0.14);
+}
+
+.loading-text { color: var(--muted); }
+.error-text { color: var(--error); font-weight: 600; }
+
+.current-card .place-line h2 { margin: 0; font-size: 22px; }
+.place-line p { margin: 2px 0 12px; }
+
+.now-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.now-temp { font-size: 64px; font-weight: 700; color: #14549c; line-height: 1.05; }
+.now-temp .unit { font-size: 24px; color: var(--muted); font-weight: 500; }
+.now-meta p { margin: 0; }
+.updated-line { margin: 14px 0 0; font-size: 13px; }
+
+.stats-card h3, .report-card h3 { margin: 0 0 12px; font-size: 16px; color: var(--section-title); }
+.hourly-card h3, .daily-card h3, .cyclones-card h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  color: var(--section-title);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.stat {
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.stat .label { font-size: 12px; color: var(--muted); }
+.stat .value { font-size: 17px; font-weight: 600; margin-top: 2px; color: #14549c; }
+
+.muted { color: var(--muted); }
+
+/* Next 24 hours */
+.hourly-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.hour-cell {
+  flex: 0 0 auto;
+  min-width: 74px;
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 8px;
+  text-align: center;
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+}
+
+.h-time { font-size: 12px; color: var(--muted); }
+.h-temp { font-size: 16px; font-weight: 600; color: #14549c; }
+.h-rain { font-size: 12px; color: #1a7fd4; }
+
+/* Three days */
+.daily-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
+}
+
+.day-card {
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.d-head { font-size: 14px; }
+.d-cond { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.d-temps { display: flex; gap: 10px; font-size: 18px; }
+.d-hi { font-weight: 700; color: #14549c; }
+.d-lo { color: var(--muted); }
+
+.d-bar {
+  height: 6px;
+  background: #dcebf7;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.d-bar-fill {
+  display: block;
+  height: 100%;
+  width: 62%;
+  background: linear-gradient(90deg, #2b9df0, #f5b942);
+  border-radius: 3px;
+}
+
+.d-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Map */
+.map-card { padding: 8px; }
+
+#map,
+.leaflet-container,
+#map *,
+.leaflet-container * {
+  box-sizing: content-box;
+}
+
+#map {
+  height: 440px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  z-index: 0;
+}
+
+.leaflet-pane { z-index: auto; }
+.leaflet-tile-pane { z-index: 200; }
+.leaflet-marker-pane { z-index: 600; }
+.leaflet-tooltip-pane { z-index: 650; }
+
+.gold-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.gold-marker .gold-dot {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #d9a520;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+/* Cyclones */
+.cyclone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.cyclone-card {
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-left-width: 5px;
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+}
+.cyclone-card:hover { background: #ddf0fb; }
+
+@media (max-width: 520px) {
+  .site-header h1 { font-size: 24px; }
+  .now-temp { font-size: 48px; }
+  .search-row button { flex: 1 1 auto; }
+}

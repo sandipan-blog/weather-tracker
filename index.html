@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <p class="eyebrow">Station weather</p>
+    <h1>Weather</h1>
+    <div class="search-row">
+      <div class="search-box">
+        <input id="city-input" type="text" placeholder="Search a city…" autocomplete="off" />
+        <ul id="suggestions" class="suggestions" hidden></ul>
+      </div>
+      <button id="btn-location" type="button">Use my location</button>
+      <button id="btn-refresh" type="button">Refresh</button>
+    </div>
+    <p id="status-line" class="status-line"></p>
+  </header>
+
+  <main class="page">
+    <section id="map-section" class="card map-card">
+      <div id="map"></div>
+    </section>
+
+    <section id="cyclones-section" class="card cyclones-card" hidden>
+      <h3>Active cyclones</h3>
+      <div id="cyclone-cards" class="cyclone-grid"></div>
+    </section>
+
+    <section id="report-section" class="card report-card">
+      <div id="loading-text" class="loading-text" hidden>Loading station data…</div>
+      <div id="error-text" class="error-text" hidden></div>
+
+      <div id="current-card" class="current-card" hidden>
+        <div class="place-line">
+          <h2 id="place-name"></h2>
+          <p id="place-region" class="muted"></p>
+        </div>
+        <div class="now-row">
+          <img id="condition-icon" alt="" width="64" height="64" />
+          <div class="now-temp">
+            <span id="temp-c"></span>
+            <span class="unit">°C</span>
+          </div>
+          <div class="now-meta">
+            <p id="condition-text"></p>
+            <p id="feels-like" class="muted"></p>
+            <p id="local-time" class="muted"></p>
+          </div>
+        </div>
+        <p class="updated-line muted">
+          <span id="station-updated"></span> · <span id="checked-at"></span>
+        </p>
+      </div>
+    </section>
+
+    <section id="stats-section" class="card stats-card" hidden>
+      <h3>Right now</h3>
+      <div id="stats-grid" class="stats-grid"></div>
+    </section>
+    <section id="hourly-section" class="card hourly-card" hidden>
+      <h3>Next 24 hours</h3>
+      <div id="hourly-row" class="hourly-row"></div>
+    </section>
+
+    <section id="daily-section" class="card daily-card" hidden>
+      <h3>Three days</h3>
+      <div id="daily-grid" class="daily-grid"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module" src="src/main.js?v=2"></script>
+</body>
+</html>
